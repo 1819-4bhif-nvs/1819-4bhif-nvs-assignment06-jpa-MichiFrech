@@ -10,3 +10,11 @@
 - Ein Datum muss in Ihrem REST-Endpoint
 - Verwenden Sie eine DerbyDb sowie eine H2
 - Erstellen Systemtests auf Basis JavaSE.
+
+
+## Class Diagramm
+![cld](https://github.com/1819-4bhif-nvs/1819-4bhif-nvs-assignment06-jpa-MichiFrech/blob/master/cld.png)
+
+## ERD
+![erd](https://github.com/1819-4bhif-nvs/1819-4bhif-nvs-assignment06-jpa-MichiFrech/blob/master/erd.png)
+
