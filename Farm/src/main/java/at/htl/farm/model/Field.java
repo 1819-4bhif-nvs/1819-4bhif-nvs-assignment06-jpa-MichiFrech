@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Field {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer hectare;
+    private int hectare;
     private String plantedSeeds;
 
     @ManyToOne
@@ -23,7 +23,7 @@ public class Field {
     public Field() {
     }
 
-    public Field(Integer hectare, String plantedSeeds, Farm farm) {
+    public Field(int hectare, String plantedSeeds, Farm farm) {
         this.hectare = hectare;
         this.plantedSeeds = plantedSeeds;
         this.farm = farm;
@@ -35,11 +35,11 @@ public class Field {
         return id;
     }
 
-    public Integer getHecatre() {
+    public int getHectare() {
         return hectare;
     }
 
-    public void setHecatre(Integer hectare) {
+    public void setHectare(int hectare) {
         this.hectare = hectare;
     }
 

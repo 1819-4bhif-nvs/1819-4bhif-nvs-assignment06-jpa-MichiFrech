@@ -53,7 +53,7 @@ public class FieldEndpoint {
     public void put(@PathParam("id") long id, Field field){
         Field f = em.find(Field.class, id);
         f.setFarm(field.getFarm());
-        f.setHecatre(field.getHecatre());
+        f.setHectare(field.getHectare());
         f.setPlantedSeeds(field.getPlantedSeeds());
         em.merge(f);
     }

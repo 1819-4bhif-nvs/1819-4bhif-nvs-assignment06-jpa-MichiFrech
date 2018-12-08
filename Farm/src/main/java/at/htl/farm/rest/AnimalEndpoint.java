@@ -1,6 +1,8 @@
 package at.htl.farm.rest;
 
 import at.htl.farm.model.Animal;
+import at.htl.farm.model.Cow;
+import at.htl.farm.model.Pork;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -58,15 +60,26 @@ public class AnimalEndpoint {
         em.merge(a);
     }
 
-    @Path("post")
+    @Path("postcow")
     @POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public Long post(Animal animal){
-        em.persist(animal);
+    public Long post(Cow cow){
+        em.persist(cow);
         em.flush();
-        return animal.getId();
+        return cow.getId();
+    }
+
+    @Path("postpork")
+    @POST
+    @Transactional
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Long post(Pork pork){
+        em.persist(pork);
+        em.flush();
+        return pork.getId();
     }
 
 }
