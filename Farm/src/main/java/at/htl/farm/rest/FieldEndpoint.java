@@ -24,14 +24,14 @@ public class FieldEndpoint {
         return em.createNamedQuery("Field.findAll", Field.class).getResultList();
     }
 
-    @Path("find/{id}")
+    @Path("findById/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Field findById(@PathParam("id") long id){
         return em.createNamedQuery("Field.findById", Field.class).setParameter(1, id).getSingleResult();
     }
 
-    @Path("find/{seed}")
+    @Path("findBySeed/{seed}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Field findBySeed(@PathParam("seed") String seed){

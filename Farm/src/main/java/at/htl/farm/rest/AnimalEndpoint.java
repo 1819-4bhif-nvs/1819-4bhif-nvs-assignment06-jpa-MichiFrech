@@ -24,14 +24,14 @@ public class AnimalEndpoint {
         return em.createNamedQuery("Animal.findAll", Animal.class).getResultList();
     }
 
-    @Path("find/{id}")
+    @Path("findById/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Animal findById(@PathParam("id") long id){
         return em.createNamedQuery("Animal.findById", Animal.class).setParameter(1, id).getSingleResult();
     }
 
-    @Path("find/{name}")
+    @Path("findByName/{name}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Animal findByName(@PathParam("name") String name){
