@@ -1,5 +1,5 @@
 # 1819_4bhif_nvs_assignment06_jpa
-Übungsbeispiel mit individueller Aufgabenstellung zum Thema JPA
+Übungsbeispiel mit einem Bauernhof zum Thema JPA
 
 
 # Aufgabenstellung
@@ -11,6 +11,8 @@
 - Verwenden Sie eine DerbyDb sowie eine H2
 - Erstellen Systemtests auf Basis JavaSE.
 
+## Projektbeschreibung
+Das Projekt ist eine einfache Bauernhofverwaltung um Tiere, Felder etc. zu verwalten.
 
 ## Class Diagramm
 ![cld](https://github.com/1819-4bhif-nvs/1819-4bhif-nvs-assignment06-jpa-MichiFrech/blob/master/cld.png)
