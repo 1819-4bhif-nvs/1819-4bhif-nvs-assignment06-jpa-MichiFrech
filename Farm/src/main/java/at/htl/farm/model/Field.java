@@ -1,14 +1,15 @@
 package at.htl.farm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Field.findAll", query = "select f from Field f"),
-        @NamedQuery(name = "Field.findBySeed", query = "select f from Field f where f.plantedSeeds like ?1"),
-        @NamedQuery(name = "Field.findById", query = "select f from Field f where f.id = ?1")
+        @NamedQuery(name = "Field.findAll", query = "select f from Field f")
 })
 public class Field {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,16 +18,17 @@ public class Field {
     private String plantedSeeds;
 
     @ManyToOne
+    @JsonIgnore
+    @XmlTransient
     protected Farm farm;
 
     //region Constructor
     public Field() {
     }
 
-    public Field(int hectare, String plantedSeeds, Farm farm) {
+    public Field(int hectare, String plantedSeeds) {
         this.hectare = hectare;
         this.plantedSeeds = plantedSeeds;
-        this.farm = farm;
     }
     //endregion
 

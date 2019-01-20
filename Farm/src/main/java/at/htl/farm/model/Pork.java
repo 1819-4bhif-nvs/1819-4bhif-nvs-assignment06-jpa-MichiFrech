@@ -1,8 +1,12 @@
 package at.htl.farm.model;
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 @Entity
+@NamedQuery(name="Pork.findAll", query = "select p from Pork p")
 public class Pork extends Animal {
     private String fieldOfUse;
 
@@ -10,8 +14,8 @@ public class Pork extends Animal {
     public Pork() {
     }
 
-    public Pork(String name, Farm farm, int age, String fieldOfUse) {
-        super(name, farm, age);
+    public Pork(String name, int age, String fieldOfUse) {
+        super(name, age);
         this.fieldOfUse = fieldOfUse;
     }
     //endregion

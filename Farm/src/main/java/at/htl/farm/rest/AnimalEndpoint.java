@@ -9,7 +9,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.net.URI;
 import java.util.List;
 
 @Path("animal")
@@ -21,65 +24,81 @@ public class AnimalEndpoint {
 
     @Path("findall")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Animal> findAll(){
-        return em.createNamedQuery("Animal.findAll", Animal.class).getResultList();
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response findAll() {
+        List<Animal> animalList = em.createNamedQuery("Animal.findAll", Animal.class).getResultList();
+        GenericEntity entity = new GenericEntity<List<Animal>>(animalList){};
+
+        return Response.ok(entity).build();
     }
 
-    @Path("findById/{id}")
+    @Path("findall/cow")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Animal findById(@PathParam("id") long id){
-        return em.createNamedQuery("Animal.findById", Animal.class).setParameter(1, id).getSingleResult();
+    public Response findAllCow() {
+        List<Cow> cowList = em.createNamedQuery("Cow.findAll", Cow.class).getResultList();
+
+        return Response.ok(cowList).build();
     }
 
-    @Path("findByName/{name}")
+    @Path("find/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Animal findByName(@PathParam("name") String name){
-        return em.createNamedQuery("Animal.findByName", Animal.class).setParameter(1, name).getSingleResult();
+    public Response findById(@PathParam("id") long id) {
+        Animal a = em.find(Animal.class, id);
+
+        if (a != null) {
+            return Response.ok(a).build();
+        } else {
+            return Response.noContent().build();
+        }
     }
 
     @Path("delete/{id}")
     @DELETE
-    @Transactional
-    public void delete(@PathParam("id") long id){
-        Animal a = em.find(Animal.class, id);
-        em.remove(a);
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") long id) {
+        try {
+            Animal a = em.find(Animal.class, id);
+            if (a != null) {
+                a.getFarm().removeAnimal(a);
+                em.remove(a);
+            }
+        } catch (Exception ex) {
+            return Response.status(404).build();
+        }
+
+        return Response.ok().build();
     }
 
-    @Path("put/{id}")
-    @PUT
-    @Transactional
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void put(@PathParam("id") long id, Animal animal){
-        Animal a = em.find(Animal.class, id);
-        a.setAge(animal.getAge());
-        a.setFarm(animal.getFarm());
-        a.setName(animal.getName());
-        em.merge(a);
-    }
-
-    @Path("postcow")
+    @Path("new/cow")
     @POST
-    @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public Long post(Cow cow){
+    public Response newCow(Cow cow) {
         em.persist(cow);
         em.flush();
-        return cow.getId();
+        return Response.created(URI.create("http://localhost:8080/farm/rs/animal/find/" + cow.getId())).build();
     }
 
-    @Path("postpork")
+    @Path("new/pork")
     @POST
-    @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public Long post(Pork pork){
+    public Response newPork(Pork pork){
         em.persist(pork);
         em.flush();
-        return pork.getId();
+        return Response.created(URI.create("http://localhost:8080/farm/rs/animal/find/" + pork.getId())).build();
     }
 
+    @Path("update/pork/{id}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update(@PathParam("id") long id, Pork p){
+        Pork pork = em.find(Pork.class, id);
+        pork.setAge(p.getAge());
+        pork.setFarm(p.getFarm());
+        pork.setName(p.getName());
+        pork.setFieldOfUse(p.getFieldOfUse());
+        em.merge(pork);
+        return Response.ok().build();
+    }
 }

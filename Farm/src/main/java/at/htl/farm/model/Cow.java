@@ -1,9 +1,13 @@
 package at.htl.farm.model;
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 
+@XmlRootElement
 @Entity
+@NamedQuery(name="Cow.findAll", query = "select c from Cow c")
 public class Cow extends Animal {
     private LocalDate lastTimeMilk;
 
@@ -11,8 +15,8 @@ public class Cow extends Animal {
     public Cow() {
     }
 
-    public Cow(String name, Farm farm, int age, LocalDate lastTimeMilk) {
-        super(name, farm, age);
+    public Cow(String name, int age, LocalDate lastTimeMilk) {
+        super(name, age);
         this.lastTimeMilk = lastTimeMilk;
     }
     //endregion

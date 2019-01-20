@@ -1,17 +1,16 @@
 package at.htl.farm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@NamedQuery(name = "Animal.findAll", query = "select a from Animal a")
 @DiscriminatorColumn
-@NamedQueries({
-        @NamedQuery(name = "Animal.findAll", query = "select a from Animal a"),
-        @NamedQuery(name = "Animal.findByName", query = "select a from Animal a where a.name like ?1"),
-        @NamedQuery(name = "Animal.findById", query = "select a from Animal a where a.id = ?1")
-})
 public class Animal {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
@@ -19,15 +18,16 @@ public class Animal {
     protected int age;
 
     @ManyToOne
+    @JsonIgnore
+    @XmlTransient
     protected Farm farm;
 
     //region Constructor
     public Animal() {
     }
 
-    public Animal(String name, Farm farm, int age) {
+    public Animal(String name, int age) {
         this.name = name;
-        this.farm = farm;
         this.age = age;
     }
 

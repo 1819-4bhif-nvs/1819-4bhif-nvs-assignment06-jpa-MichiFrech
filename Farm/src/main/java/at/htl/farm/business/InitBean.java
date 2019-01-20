@@ -28,55 +28,80 @@ public class InitBean {
     private void init() {
         System.out.println("------init------");
 
-        Farm firstFarm = new Farm("Linz");
-        em.persist(firstFarm);
-        Farm secondFarm = new Farm("Leonding");
-        em.persist(secondFarm);
-
-        Field field1 = new Field(4, "Weizen", firstFarm);
+        Field field1 = new Field(4, "Weizen");
         em.persist(field1);
-        Field field2 = new Field(3, "Roggen", firstFarm);
+        Field field2 = new Field(3, "Roggen");
         em.persist(field2);
-        Field field3 = new Field(5, "Gerste", secondFarm);
+        Field field3 = new Field(5, "Gerste");
         em.persist(field3);
-        Field field4 = new Field(2, "Hirse", secondFarm);
+        Field field4 = new Field(2, "Hirse");
         em.persist(field4);
-        Field field5 = new Field(3, "Dinkel", secondFarm);
+        Field field5 = new Field(3, "Dinkel");
         em.persist(field5);
 
-        Cow cow1 = new Cow("Peter", firstFarm, 4, LocalDate.of(2018, 11, 22));
+        Cow cow1 = new Cow("Peter", 4, LocalDate.of(2018, 11, 22));
         em.persist(cow1);
-        Cow cow2 = new Cow("Hans", firstFarm, 5, LocalDate.of(2018, 11, 18));
+        Cow cow2 = new Cow("Hans", 5, LocalDate.of(2018, 11, 18));
         em.persist(cow2);
-        Cow cow3 = new Cow("Max", firstFarm, 2, LocalDate.of(2018, 11, 19));
+        Cow cow3 = new Cow("Max", 2, LocalDate.of(2018, 11, 19));
         em.persist(cow3);
-        Cow cow4 = new Cow("Franz", firstFarm, 6, LocalDate.of(2018, 11, 20));
+        Cow cow4 = new Cow("Franz", 6, LocalDate.of(2018, 11, 20));
         em.persist(cow4);
-        Cow cow5 = new Cow("Sepp", firstFarm, 3, LocalDate.of(2018, 11, 26));
+        Cow cow5 = new Cow("Sepp", 3, LocalDate.of(2018, 11, 26));
         em.persist(cow5);
 
-        Pork pork1 = new Pork("Manuel", firstFarm, 3, "schlachten");
+        Pork pork1 = new Pork("Manuel", 3, "schlachten");
         em.persist(pork1);
-        Pork pork2 = new Pork("Walter", firstFarm, 1, "züchten");
+        Pork pork2 = new Pork("Walter", 1, "züchten");
         em.persist(pork2);
-        Pork pork3 = new Pork("Herbert", firstFarm, 2, "züchten");
+        Pork pork3 = new Pork("Herbert", 2, "züchten");
         em.persist(pork3);
 
-        Cow cow6 = new Cow("Oskar", secondFarm, 4, LocalDate.of(2018, 12, 1));
+        Cow cow6 = new Cow("Oskar", 4, LocalDate.of(2018, 12, 1));
         em.persist(cow6);
-        Cow cow7 = new Cow("Ben", secondFarm, 2, LocalDate.of(2018, 11, 29));
+        Cow cow7 = new Cow("Ben", 2, LocalDate.of(2018, 11, 29));
         em.persist(cow7);
-        Cow cow8 = new Cow("Leon", secondFarm, 6, LocalDate.of(2018, 12, 3));
+        Cow cow8 = new Cow("Leon", 6, LocalDate.of(2018, 12, 3));
         em.persist(cow8);
 
-        Pork pork4 = new Pork("Marco", secondFarm, 1, "züchten");
+        Pork pork4 = new Pork("Marco", 1, "züchten");
         em.persist(pork4);
-        Pork pork5 = new Pork("Markus", secondFarm, 2, "züchten");
+        Pork pork5 = new Pork("Markus", 2, "züchten");
         em.persist(pork5);
-        Pork pork6 = new Pork("Fabian", secondFarm, 5, "schlachten");
+        Pork pork6 = new Pork("Fabian", 5, "schlachten");
         em.persist(pork6);
-        Pork pork7 = new Pork("Gerhard", secondFarm, 2, "züchten");
+        Pork pork7 = new Pork("Gerhard", 2, "züchten");
         em.persist(pork7);
+
+        Farm firstFarm = new Farm("Linz");
+        firstFarm.addField(field1);
+        firstFarm.addField(field2);
+
+        firstFarm.addAnimal(cow1);
+        firstFarm.addAnimal(cow2);
+        firstFarm.addAnimal(cow3);
+        firstFarm.addAnimal(cow4);
+        firstFarm.addAnimal(cow5);
+
+        firstFarm.addAnimal(pork1);
+        firstFarm.addAnimal(pork2);
+        firstFarm.addAnimal(pork3);
+        em.persist(firstFarm);
+
+        Farm secondFarm = new Farm("Leonding");
+        secondFarm.addField(field3);
+        secondFarm.addField(field4);
+        secondFarm.addField(field5);
+
+        secondFarm.addAnimal(cow6);
+        secondFarm.addAnimal(cow7);
+        secondFarm.addAnimal(cow8);
+
+        secondFarm.addAnimal(pork4);
+        secondFarm.addAnimal(pork5);
+        secondFarm.addAnimal(pork6);
+        secondFarm.addAnimal(pork7);
+        em.persist(secondFarm);
     }
 
 }
