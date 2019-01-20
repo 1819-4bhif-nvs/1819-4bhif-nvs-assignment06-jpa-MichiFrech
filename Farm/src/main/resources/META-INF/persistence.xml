@@ -4,8 +4,6 @@
         <jta-data-source>java:jboss/datasources/DbDs</jta-data-source>
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="create-drop"></property>
-            <property name="hibernate.show_sql" value="true"></property>
-            <property name="hibernate.format_sql" value="true"></property>
             <property name="hibernate.trancsaction.flush_before_completion" value="true"></property>
             <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect"></property>
         </properties>

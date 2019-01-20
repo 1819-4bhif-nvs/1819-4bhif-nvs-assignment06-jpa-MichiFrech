@@ -77,7 +77,6 @@ public class FieldEndpoint {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("id") long id, Field f){
         Field field = em.find(Field.class, id);
-        field.setFarm(f.getFarm());
         field.setHectare(f.getHectare());
         field.setPlantedSeeds(f.getPlantedSeeds());
         em.merge(field);

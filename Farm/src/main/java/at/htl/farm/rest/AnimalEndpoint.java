@@ -61,10 +61,11 @@ public class AnimalEndpoint {
         try {
             Animal a = em.find(Animal.class, id);
             if (a != null) {
-                a.getFarm().removeAnimal(a);
+                //a.getFarm().removeAnimal(a);
                 em.remove(a);
             }
         } catch (Exception ex) {
+            //System.err.println(ex.getMessage());
             return Response.status(404).build();
         }
 
