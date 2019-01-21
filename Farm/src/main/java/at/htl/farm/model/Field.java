@@ -17,7 +17,7 @@ public class Field {
     private int hectare;
     private String plantedSeeds;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @XmlTransient
     protected Farm farm;

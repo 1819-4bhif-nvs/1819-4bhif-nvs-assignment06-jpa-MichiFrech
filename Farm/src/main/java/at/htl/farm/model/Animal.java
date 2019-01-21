@@ -17,7 +17,7 @@ public class Animal {
     protected String name;
     protected int age;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @XmlTransient
     protected Farm farm;
